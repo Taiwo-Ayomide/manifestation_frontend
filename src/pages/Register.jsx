@@ -5,11 +5,13 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    center: '',
     password: ''
   });
   const [errors, setErrors] = useState({
     name: '',
     email: '',
+    center: '',
     password: ''
   });
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ const Register = () => {
   };
 
   const validateForm = () => {
-    let formErrors = { name: '', email: '', password: '' };
+    let formErrors = { name: '', email: '', center: '', password: '' };
     let isValid = true;
 
     if (!formData.name) {
@@ -36,6 +38,10 @@ const Register = () => {
       isValid = false;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       formErrors.email = 'Email is invalid';
+      isValid = false;
+    }
+    if (!formData.center) {
+      formErrors.center = 'Center is required';
       isValid = false;
     }
     if (!formData.password) {
@@ -54,7 +60,7 @@ const Register = () => {
       setTimeout(() => {
         setLoading(false);
         alert('Form submitted successfully!');
-      }, 2000); // Simulating a form submission delay
+      }, 2000); // Adding form delay
     }
   };
 
@@ -64,7 +70,7 @@ const Register = () => {
         <div className="text-center mb-6">
           <img src="logonew.png" alt="Logo" className="mx-auto mb-4 w-20" />
           <h1 className='font-sans font-bold text-2xl text-violet-900'>MANIFESTATION EDUCATIONAL CONSULT</h1>
-          <h2 className="text-xl font-semibold uppercase font-mono text-red-500">PAst questions Registration portal</h2>
+          <h2 className="text-xl font-semibold uppercase font-mono text-red-500">Past questions Registration portal</h2>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -91,6 +97,56 @@ const Register = () => {
             />
             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
+
+          {/* Replaced the center input field with a select dropdown */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700" htmlFor="center">Center</label>
+            <select
+              id="center"
+              name="center"
+              value={formData.center}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 rounded-md outline-none"
+              aria-label="Select an educational center"
+            >
+              <option value="">Select a center</option>
+              <option value="BOLMOR IBADAN">BOLMOR IBADAN</option>
+              <option value="CILGPAN EBUTE META">CILGPAN EBUTE META</option>
+              <option value="CIPSMN LAGOS">CIPSMN LAGOS</option>
+              <option value="CIS APAPA">CIS APAPA</option>
+              <option value="CLASS IFE">CLASS IFE</option>
+              <option value="COOPERATIVE">COOPERATIVE</option>
+              <option value="FRANK AND NOBLE">FRANK AND NOBLE</option>
+              <option value="GRACE FIELD OSOGBO">GRACE FIELD OSOGBO</option>
+              <option value="IBADAN ACADEMY">IBADAN ACADEMY</option>
+              <option value="IGLSA LAGOS">IGLSA LAGOS</option>
+              <option value="ILA COLLEGE">ILA COLLEGE</option>
+              <option value="ILORIN COLLEGE">ILORIN COLLEGE</option>
+              <option value="INKLITE">INKLITE</option>
+              <option value="ISAMS YABA">ISAMS YABA</option>
+              <option value="ISOWN">ISOWN</option>
+              <option value="MANIFESTATION">MANIFESTATION</option>
+              <option value="MARCOMS">MARCOMS</option>
+              <option value="MAYDAY">MAYDAY</option>
+              <option value="MOLOFIN">MOLOFIN</option>
+              <option value="MOLOFIN IKOYI">MOLOFIN IKOYI</option>
+              <option value="MOSMER">MOSMER</option>
+              <option value="MOSNA">MOSNA</option>
+              <option value="OBS">OBS</option>
+              <option value="OLUFUNMILAYO">OLUFUNMILAYO</option>
+              <option value="PANCOED">PANCOED</option>
+              <option value="PGS">PGS</option>
+              <option value="PRIVILEDGE AND PEACE">PRIVILEDGE AND PEACE</option>
+              <option value="QUALITY EDUCATION">QUALITY EDUCATION</option>
+              <option value="RAISING & STAR">RAISING & STAR</option>
+              <option value="RONIK EJIGBO">RONIK EJIGBO</option>
+              <option value="ROYAL">ROYAL</option>
+              <option value="ROYAL KNOWLEDGE">ROYAL KNOWLEDGE</option>
+              <option value="WINESS MODEL COLLEGE">WINESS MODEL COLLEGE</option>
+            </select>
+            {errors.center && <p className="text-red-500 text-xs mt-1">{errors.center}</p>}
+          </div>
+
           <div className="mb-6 relative">
             <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
             <input
@@ -110,6 +166,7 @@ const Register = () => {
             </button>
             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
           </div>
+
           <button
             type="submit"
             className="w-full py-2 bg-blue-800 text-white rounded-md focus:outline-none hover:bg-blue-900 uppercase font-mono font-bold"
@@ -118,8 +175,9 @@ const Register = () => {
             {loading ? 'Loading...' : 'Register'}
           </button>
         </form>
+
         <div className='pt-2'>
-          <p>Already have an account, Login <Link className="text-red-500" to="/">Here</Link> </p>
+          <p>Already have an account? Login <Link className="text-red-500" to="/">Here</Link></p>
         </div>
       </div>
     </div>
