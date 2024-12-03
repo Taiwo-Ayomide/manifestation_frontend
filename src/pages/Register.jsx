@@ -15,7 +15,7 @@ const Register = () => {
     password: ''
   });
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,14 +53,41 @@ const Register = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const registerUser = async (formData) => {
+    const response = await fetch('http://localhost:5000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Registration failed');
+    }
+
+    return response.json();
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       setLoading(true);
-      setTimeout(() => {
+      try {
+        const data = await registerUser(formData);
+        alert('Registration successful!');
+        // Optionally redirect user or clear form
+        setFormData({
+          name: '',
+          email: '',
+          center: '',
+          password: ''
+        });
+      } catch (error) {
+        alert('Registration failed: ' + error.message);
+      } finally {
         setLoading(false);
-        alert('Form submitted successfully!');
-      }, 2000); // Adding form delay
+      }
     }
   };
 
