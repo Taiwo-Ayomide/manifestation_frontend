@@ -32,7 +32,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.3.1"],\
           ["@vitejs/plugin-react", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:4.3.4"],\
           ["autoprefixer", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:10.4.20"],\
-          ["axios", "npm:1.7.8"],\
+          ["axios", "npm:1.7.9"],\
           ["eslint", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:9.15.0"],\
           ["eslint-plugin-react", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:7.37.2"],\
           ["eslint-plugin-react-hooks", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:5.0.0"],\
@@ -1399,11 +1399,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["axios", [\
-      ["npm:1.7.8", {\
-        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/axios-npm-1.7.8-b20f5c399f-10c0.zip/node_modules/axios/",\
+      ["npm:1.7.9", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/axios-npm-1.7.9-3c98466f87-10c0.zip/node_modules/axios/",\
         "packageDependencies": [\
-          ["axios", "npm:1.7.8"],\
-          ["follow-redirects", "virtual:b20f5c399f1c73779564cfbf31ebf34158d62e6122d6790256982fed4a9dc55158231d1376ae0d31259b225576e217004a11eb64342859f09e60586674e3bee9#npm:1.15.9"],\
+          ["axios", "npm:1.7.9"],\
+          ["follow-redirects", "virtual:3c98466f874305529f1a16589101c28705aa489e7ec8ffcbfb5cc062090761c951973322264d8039ff40de705a591171bac1067843c49b197410972b4a9ed9f4#npm:1.15.9"],\
           ["form-data", "npm:4.0.1"],\
           ["proxy-from-env", "npm:1.1.0"]\
         ],\
@@ -2393,10 +2393,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:b20f5c399f1c73779564cfbf31ebf34158d62e6122d6790256982fed4a9dc55158231d1376ae0d31259b225576e217004a11eb64342859f09e60586674e3bee9#npm:1.15.9", {\
-        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-6fdfc913d4/4/AppData/Local/Yarn/Berry/cache/follow-redirects-npm-1.15.9-539785d34c-10c0.zip/node_modules/follow-redirects/",\
+      ["virtual:3c98466f874305529f1a16589101c28705aa489e7ec8ffcbfb5cc062090761c951973322264d8039ff40de705a591171bac1067843c49b197410972b4a9ed9f4#npm:1.15.9", {\
+        "packageLocation": "./.yarn/__virtual__/follow-redirects-virtual-e8bf3836d7/4/AppData/Local/Yarn/Berry/cache/follow-redirects-npm-1.15.9-539785d34c-10c0.zip/node_modules/follow-redirects/",\
         "packageDependencies": [\
-          ["follow-redirects", "virtual:b20f5c399f1c73779564cfbf31ebf34158d62e6122d6790256982fed4a9dc55158231d1376ae0d31259b225576e217004a11eb64342859f09e60586674e3bee9#npm:1.15.9"],\
+          ["follow-redirects", "virtual:3c98466f874305529f1a16589101c28705aa489e7ec8ffcbfb5cc062090761c951973322264d8039ff40de705a591171bac1067843c49b197410972b4a9ed9f4#npm:1.15.9"],\
           ["@types/debug", null],\
           ["debug", null]\
         ],\
@@ -3503,7 +3503,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.3.1"],\
           ["@vitejs/plugin-react", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:4.3.4"],\
           ["autoprefixer", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:10.4.20"],\
-          ["axios", "npm:1.7.8"],\
+          ["axios", "npm:1.7.9"],\
           ["eslint", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:9.15.0"],\
           ["eslint-plugin-react", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:7.37.2"],\
           ["eslint-plugin-react-hooks", "virtual:92d01c77b93de00ee522a67f45e19b429133990cbb6dbd9358d1aa88eb0854bbf3c2fd7f1a62a3c56f218633937076960930b66cb581cb8f8bf5531c7a3cd6c0#npm:5.0.0"],\

@@ -1,39 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Pre_exam = () => {
   const [programme, setProgramme] = useState('');
   const [semester, setSemester] = useState('');
   const [session, setSession] = useState('');
-  const [user, setUser] = useState(null); // To hold user data
+  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get user data (name, center, accessToken) from localStorage
+    // Get user data from localStorage
     const storedUser = JSON.parse(localStorage.getItem('user'));
-    
-    // If no user data is found, redirect to login
+
     if (!storedUser) {
       navigate('/');
     } else {
-      setUser(storedUser); // Assuming the user data is directly returned
+      setUser(storedUser);
     }
   }, [navigate]);
 
-  const handleSubmit = () => {
+  // Function to handle form submission
+  const handleSubmit = async () => {
     if (programme && semester && session) {
-      navigate(`/exam?programme=${programme}&semester=${semester}&session=${session}`);
+      try {
+        // Get the access token from localStorage
+        const accessToken = localStorage.getItem('accessToken');
+  
+        if (!accessToken) {
+          alert('You are not authorized. Please log in again.');
+          navigate('/');
+          return;
+        }
+  
+        // Send the request with programme, semester, and session data
+        const response = await axios.post(
+          'http://localhost:5000/api/start-quiz',
+          { programme, semester, session },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`, // Include the access token in the Authorization header
+            },
+          }
+        );
+  
+        if (response.data.success) {
+          // If quiz is found, redirect to the exam page with quiz data
+          navigate(`/exam/${response.data.examId}`, {
+            state: { questions: response.data.questions },  // Assuming examId is returned
+          });
+        } else {
+          alert('No quiz found for selected options.');
+        }
+      } catch (error) {
+        console.error('Error fetching quiz:', error);
+        if (error.response && error.response.status === 401) {
+          alert('Unauthorized. Please log in again.');
+          navigate('/');
+        } else {
+          alert('Something went wrong while fetching the quiz.');
+        }
+      }
     } else {
-      alert('Please select all the fields.');
+      alert('Please select all fields.');
     }
   };
+  
+  
 
   // Logout function
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
-    navigate('/'); // Redirect to login page
+    navigate('/');
   };
 
   return (
@@ -43,14 +83,12 @@ const Pre_exam = () => {
           <img src="logonew.png" className="w-20 rounded-lg" alt="manifestation_logo" />
         </div>
 
-        {/* Welcome message with user's name */}
         <div className="flex justify-center pt-2">
           <h1 className="uppercase font-bold">
             Welcome {user ? user.name : 'User'}
           </h1>
         </div>
 
-        {/* Center name */}
         <div className="flex justify-center pt-2">
           <p className="uppercase font-bold">
             {user ? user.center : 'Manifestation'}
@@ -61,9 +99,9 @@ const Pre_exam = () => {
         <form>
           <div className="pt-5">
             <h1 className="uppercase font-serif font-bold">Select Programme</h1>
-            <select 
-              className="rounded-lg w-full h-10 outline-none" 
-              value={programme} 
+            <select
+              className="rounded-lg w-full h-10 outline-none"
+              value={programme}
               onChange={(e) => setProgramme(e.target.value)}
             >
               <option value="">Please select</option>
@@ -82,9 +120,9 @@ const Pre_exam = () => {
 
           <div className="pt-5">
             <h1 className="uppercase font-serif font-bold">Semester</h1>
-            <select 
-              className="rounded-lg w-full h-10 outline-none" 
-              value={semester} 
+            <select
+              className="rounded-lg w-full h-10 outline-none"
+              value={semester}
               onChange={(e) => setSemester(e.target.value)}
             >
               <option value="">Please select</option>
@@ -97,9 +135,9 @@ const Pre_exam = () => {
 
           <div className="pt-5">
             <h1 className="uppercase font-serif font-bold">Session</h1>
-            <select 
-              className="rounded-lg w-full h-10 outline-none" 
-              value={session} 
+            <select
+              className="rounded-lg w-full h-10 outline-none"
+              value={session}
               onChange={(e) => setSession(e.target.value)}
             >
               <option value="">Please select</option>
@@ -111,18 +149,18 @@ const Pre_exam = () => {
           </div>
 
           <div className="pt-5">
-            <input 
-              className="rounded-lg w-full h-10 outline-none bg-blue-800 text-white uppercase font-bold font-sans cursor-pointer" 
-              type="button" 
-              value="Start Quiz" 
+            <input
+              className="rounded-lg w-full h-10 outline-none bg-blue-800 text-white uppercase font-bold font-sans cursor-pointer"
+              type="button"
+              value="Start Quiz"
               onClick={handleSubmit}
             />
           </div>
           <div className="pt-2">
-            <input 
-              className="rounded-lg w-full h-10 outline-none bg-blue-800 text-white uppercase font-bold font-sans cursor-pointer" 
-              type="button" 
-              value="Log out" 
+            <input
+              className="rounded-lg w-full h-10 outline-none bg-blue-800 text-white uppercase font-bold font-sans cursor-pointer"
+              type="button"
+              value="Log out"
               onClick={handleLogout}
             />
           </div>

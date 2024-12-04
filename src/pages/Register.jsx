@@ -1,18 +1,34 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// Reusable Input Component
+const InputField = ({ label, type = 'text', name, value, onChange, error }) => (
+  <div className="mb-4">
+    <label className="block text-sm font-medium text-gray-700" htmlFor={name}>{label}</label>
+    <input
+      type={type}
+      id={name}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className="w-full p-2 border border-gray-300 rounded-md outline-none"
+    />
+    {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+  </div>
+);
+
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     center: '',
-    password: ''
+    password: '',
   });
   const [errors, setErrors] = useState({
     name: '',
     email: '',
     center: '',
-    password: ''
+    password: '',
   });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -26,13 +42,14 @@ const Register = () => {
   };
 
   const validateForm = () => {
-    let formErrors = { name: '', email: '', center: '', password: '' };
+    const formErrors = { name: '', email: '', center: '', password: '' };
     let isValid = true;
 
     if (!formData.name) {
       formErrors.name = 'Name is required';
       isValid = false;
     }
+
     if (!formData.email) {
       formErrors.email = 'Email is required';
       isValid = false;
@@ -40,15 +57,20 @@ const Register = () => {
       formErrors.email = 'Email is invalid';
       isValid = false;
     }
+
     if (!formData.center) {
       formErrors.center = 'Center is required';
       isValid = false;
     }
+
     if (!formData.password) {
       formErrors.password = 'Password is required';
       isValid = false;
+    } else if (formData.password.length < 6) {
+      formErrors.password = 'Password must be at least 6 characters';
+      isValid = false;
     }
-    
+
     setErrors(formErrors);
     return isValid;
   };
@@ -62,8 +84,10 @@ const Register = () => {
       body: JSON.stringify(formData),
     });
 
+    // If response is not ok, throw an error with the response body
     if (!response.ok) {
-      throw new Error('Registration failed');
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Registration failed');
     }
 
     return response.json();
@@ -81,9 +105,10 @@ const Register = () => {
           name: '',
           email: '',
           center: '',
-          password: ''
+          password: '',
         });
       } catch (error) {
+        // Handle errors from the server (display the server error message)
         alert('Registration failed: ' + error.message);
       } finally {
         setLoading(false);
@@ -100,32 +125,23 @@ const Register = () => {
           <h2 className="text-xl font-semibold uppercase font-mono text-red-500">Past questions Registration portal</h2>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md outline-none"
-            />
-            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md outline-none"
-            />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-          </div>
+          <InputField
+            label="Name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            error={errors.name}
+          />
 
-          {/* Replaced the center input field with a select dropdown */}
+          <InputField
+            label="Email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            error={errors.email}
+          />
+
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="center">Center</label>
             <select
@@ -134,7 +150,6 @@ const Register = () => {
               value={formData.center}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-md outline-none"
-              aria-label="Select an educational center"
             >
               <option value="">Select a center</option>
               <option value="BOLMOR IBADAN">BOLMOR IBADAN</option>
@@ -203,7 +218,7 @@ const Register = () => {
           </button>
         </form>
 
-        <div className='pt-2'>
+        <div className="pt-2">
           <p>Already have an account? Login <Link className="text-red-500" to="/">Here</Link></p>
         </div>
       </div>

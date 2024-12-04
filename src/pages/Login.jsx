@@ -75,7 +75,7 @@ const Login = () => {
         // Handle errors from the server (wrong email/password)
         setErrors(prevErrors => ({
           ...prevErrors,
-          password: data.message || 'Login failed. Please try again.',
+          password: data.message || 'Incorrect Email or password',
         }));
       }
     } catch (error) {
