@@ -36,7 +36,7 @@ const Pre_exam = () => {
   
         // Send the request with programme, semester, and session data
         const response = await axios.post(
-          'http://localhost:5000/api/quiz/start-quiz',
+          'https://pgschool-api.onrender.com/api/quiz/start-quiz',
           { programme, semester, session },
           {
             headers: {
