@@ -36,11 +36,11 @@ const Pre_exam = () => {
   
         // Send the request with programme, semester, and session data
         const response = await axios.post(
-          'http://localhost:5000/api/start-quiz',
+          'http://localhost:5000/api/quiz/start-quiz',
           { programme, semester, session },
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`, // Include the access token in the Authorization header
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         );
